@@ -1,4 +1,4 @@
-#include "header.h";
+#include "header.h"
 
 int main(int argc, char const *argv[]) {
     printf("\nHello world!");
