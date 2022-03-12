@@ -5,3 +5,9 @@ typedef struct musica {
     char album[200];
     int duracao;
 } musica;
+
+typedef struct musica_node {
+    musica *musica;
+    struct musica_node *ant;
+    struct musica_node *prox;
+} musica_node;
