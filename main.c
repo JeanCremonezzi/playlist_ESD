@@ -1,5 +1,5 @@
 #include "header.h"
 
 int main(int argc, char const *argv[]) {
-    hello();
+    musica_node* musicsList = initMusics();
 }

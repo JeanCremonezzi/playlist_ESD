@@ -1,1 +1,1 @@
-void hello();
+musica_node* initMusics();
