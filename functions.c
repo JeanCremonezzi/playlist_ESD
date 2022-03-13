@@ -50,16 +50,23 @@ musica_node* insertMusic(musicsHeader* header, char* title, char* artist, char* 
 
 void printMusics(musicsHeader* header) {
     if (header->count == 0) {
-        printf("\n No musics found!");
+        printf("\nNo musics found!\n");
 
     } else {
         musica_node* node = header->first;
 
-        printf("\n\n Musics list:\n");
+        printf("\n\nMusics list:\n");
 
         while (1) {
-            printf("\n Track ID %d: %s - %s", node->musica->id, node->musica->titulo, node->musica->artista);
-            printf("\n Album: %s\n", node->musica->album);
+            musica* music = node->musica;
+            printf("\nTrack ID %d: %s - %s", music->id, music->titulo, music->artista);
+            printf("\nAlbum: %s", music->album);
+
+            int h = music->duracao / 3600;
+            int m = (music->duracao / 60) % 60;
+            int s = music->duracao % 60;
+
+            printf("\nDuration: %02d:%02d:%02d\n", h, m, s);
 
             if (node->prox == NULL) {
                 break;
@@ -68,4 +75,6 @@ void printMusics(musicsHeader* header) {
             node = node->prox;
         }
     }
+
+    printf("\n------------------------------------------------------");
 };
