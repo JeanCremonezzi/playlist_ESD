@@ -1,7 +1,9 @@
 #include "header.h"
 
-int main(int argc, char const *argv[]) {
+int main() {
     musicsHeader* musics = init();
 
-    musica* music = createMusic("MUSICA TITLE", "MUSICA ARTIST", "MUSICA ALBUM", 180);
+    musica_node* newMusic = insertMusic(musics, "MUSIC 1", "ARTIST 1", "ALBUM 1", 180);
+    musica_node* newMusic2 = insertMusic(musics, "MUSIC 2", "ARTIST 2", "ALBUM 2", 360);
+    musica_node* newMusic3 = insertMusic(musics, "MUSIC 3", "ARTIST 3", "ALBUM 3", 540);
 }

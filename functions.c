@@ -17,7 +17,33 @@ musica* createMusic(char* title, char* artist, char* album, int duration) {
     strcpy(newMusic->artista, artist);
     strcpy(newMusic->album, album);
     newMusic->duracao = duration;
-    newMusic->id = 0;
 
     return newMusic;
+}
+
+musica_node* insertMusic(musicsHeader* header, char* title, char* artist, char* album, int duration) {
+    musica_node* musicNode = malloc(sizeof(musica_node));
+
+    musica* newMusica = createMusic(title, artist, album, duration);
+    musicNode->musica = newMusica;
+
+    if (header->count == 0) {
+        newMusica->id = 1;
+
+        header->first = musicNode;
+        header->last = musicNode;
+
+    } else {
+        newMusica->id = header->last->musica->id + 1;
+
+        musicNode->prox = NULL;
+        musicNode->ant = header->last;
+
+        header->last->prox = musicNode;
+        header->last = musicNode;
+    }
+
+    header->count++;
+
+    return musicNode;
 }
