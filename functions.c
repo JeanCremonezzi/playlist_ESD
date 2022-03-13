@@ -9,3 +9,15 @@ musicsHeader* init() {
 
     return ptrHeader;
 }
+
+musica* createMusic(char* title, char* artist, char* album, int duration) {
+    musica* newMusic = malloc(sizeof(musica));
+
+    strcpy(newMusic->titulo, title);
+    strcpy(newMusic->artista, artist);
+    strcpy(newMusic->album, album);
+    newMusic->duracao = duration;
+    newMusic->id = 0;
+
+    return newMusic;
+}
