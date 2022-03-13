@@ -47,3 +47,25 @@ musica_node* insertMusic(musicsHeader* header, char* title, char* artist, char* 
 
     return musicNode;
 }
+
+void printMusics(musicsHeader* header) {
+    if (header->count == 0) {
+        printf("\n No musics found!");
+
+    } else {
+        musica_node* node = header->first;
+
+        printf("\n\n Musics list:\n");
+
+        while (1) {
+            printf("\n Track ID %d: %s - %s", node->musica->id, node->musica->titulo, node->musica->artista);
+            printf("\n Album: %s\n", node->musica->album);
+
+            if (node->prox == NULL) {
+                break;
+            }
+
+            node = node->prox;
+        }
+    }
+};
