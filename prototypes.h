@@ -1,1 +1,1 @@
-musica_node* initMusics();
+musicsHeader* init();

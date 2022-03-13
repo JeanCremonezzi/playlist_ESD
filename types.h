@@ -11,3 +11,9 @@ typedef struct musica_node {
     struct musica_node *ant;
     struct musica_node *prox;
 } musica_node;
+
+typedef struct musicsHeader {
+    struct musica_node *first;
+    struct musica_node *last;
+    int count;
+} musicsHeader;

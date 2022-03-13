@@ -1,11 +1,11 @@
 #include "header.h"
 
-musica_node* initMusics() {
-    musica_node* ptrList = malloc(sizeof(musica_node));
+musicsHeader* init() {
+    musicsHeader* ptrHeader = malloc(sizeof(musicsHeader));
 
-    ptrList->ant = NULL;
-    ptrList->prox = NULL;
-    ptrList->musica = NULL;
+    ptrHeader->first = NULL;
+    ptrHeader->last = NULL;
+    ptrHeader->count = 0;
 
-    return ptrList;
+    return ptrHeader;
 }
