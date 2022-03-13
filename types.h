@@ -17,3 +17,8 @@ typedef struct musicsHeader {
     struct musica_node *last;
     int count;
 } musicsHeader;
+
+typedef struct playlist_node {
+    musica *musica;
+    struct playlist_node *prox;
+} playlist_node;
