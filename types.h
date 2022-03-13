@@ -1,8 +1,8 @@
 typedef struct musica {
     int id;
-    char titulo[200];
-    char artista[200];
-    char album[200];
+    char titulo[STRING_SIZE];
+    char artista[STRING_SIZE];
+    char album[STRING_SIZE];
     int duracao;
 } musica;
 
