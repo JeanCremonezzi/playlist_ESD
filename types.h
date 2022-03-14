@@ -22,3 +22,10 @@ typedef struct playlist_node {
     musica *musica;
     struct playlist_node *prox;
 } playlist_node;
+
+typedef struct lplaylists_node {
+    int id;
+    char nome[STRING_SIZE];
+    playlist_node *musicas;
+    struct lplaylists_node *prox;
+} lplaylists_node;
