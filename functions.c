@@ -33,16 +33,18 @@ musica_node* insertMusic(musicsHeader* header, char* title, char* artist, char* 
         header->first = musicNode;
         header->last = musicNode;
 
+        musicNode->ant = NULL;
+
     } else {
         newMusica->id = header->last->musica->id + 1;
 
-        musicNode->prox = NULL;
         musicNode->ant = header->last;
 
         header->last->prox = musicNode;
         header->last = musicNode;
     }
 
+    musicNode->prox = NULL;
     header->count++;
 
     return musicNode;
