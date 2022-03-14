@@ -10,4 +10,6 @@ int main() {
     insertMusic(musics, "Come Join the Murder", "The White Buffalo", "Come Join the Murder", 448);
 
     printMusics(musics);
+
+    getMusic(2, musics);
 }

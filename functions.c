@@ -80,3 +80,24 @@ void printMusics(musicsHeader* header) {
 
     printf("\n------------------------------------------------------");
 };
+
+musica* getMusic(int id, musicsHeader* header) {
+
+    if (header->count > 0 && id > 0) {
+        musica_node* actualNode = header->first;
+
+        while(1) {
+            if (actualNode->musica->id == id) {
+                return actualNode->musica;
+            }
+
+            if (actualNode->prox == NULL) {
+                return NULL;
+            }
+
+            actualNode = actualNode->prox;
+        }
+    }
+
+    return NULL;
+}
