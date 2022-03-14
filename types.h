@@ -29,3 +29,9 @@ typedef struct lplaylists_node {
     playlist_node *musicas;
     struct lplaylists_node *prox;
 } lplaylists_node;
+
+typedef struct playlistsHeader {
+    struct lplaylists_node *first;
+    struct lplaylists_node *last;
+    int count;
+} playlistsHeader;

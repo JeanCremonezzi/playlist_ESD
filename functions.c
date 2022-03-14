@@ -10,6 +10,16 @@ musicsHeader* init() {
     return ptrHeader;
 }
 
+playlistsHeader* initPlaylists() {
+    playlistsHeader* ptrHeader = malloc(sizeof(playlistsHeader));
+
+    ptrHeader->first = NULL;
+    ptrHeader->last = NULL;
+    ptrHeader->count = 0;
+
+    return ptrHeader;
+}
+
 musica* createMusic(char* title, char* artist, char* album, int duration) {
     musica* newMusic = malloc(sizeof(musica));
 
