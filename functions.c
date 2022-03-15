@@ -158,8 +158,50 @@ void printMusics(musicsHeader* header) {
     printf("\n------------------------------------------------------");
 };
 
-musica* getMusic(int id, musicsHeader* header) {
+void printPlayListById (playlistsHeader* playlists, int id) {
+    if (playlists->count != 0) {
+        lplaylists_node* actualNode = playlists->first;
 
+        while (1) {
+            if (actualNode->id == id) {
+                printPlayList(actualNode);
+                return;
+            }
+
+            if (actualNode->prox == NULL) {
+                printf("\n\nPlaylist not found.");
+                return;
+            }
+
+            actualNode = actualNode->prox;
+        }
+    }
+
+    printf("\n\nNo playlists created.");
+};
+
+void printPlayList(lplaylists_node* playlist) {
+    if (playlist->musicas != NULL) {
+        printf("\ntracks from %s", playlist->nome);
+
+        playlist_node* actualNode;
+        actualNode = playlist->musicas;
+
+        while (1) {
+            printMusic(actualNode->musica);
+
+            if (actualNode->prox == playlist->musicas || actualNode->prox == NULL) {
+                return;
+            }
+
+            actualNode = actualNode->prox;
+        }
+    }
+
+    printf("\n\nPlaylist %d has no musics.", playlist->id);
+}
+
+musica* getMusic(int id, musicsHeader* header) {
     if (header->count > 0 && id > 0) {
         musica_node* actualNode = header->first;
 

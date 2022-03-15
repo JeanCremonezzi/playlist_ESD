@@ -17,4 +17,7 @@ int main() {
 
     newPlaylist(playlists, musics);
     newPlaylist(playlists, musics);
+
+    printPlayListById(playlists, 1);
+    printPlayListById(playlists, 2);
 }
