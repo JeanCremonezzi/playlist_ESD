@@ -111,3 +111,67 @@ musica* getMusic(int id, musicsHeader* header) {
 
     return NULL;
 }
+
+lplaylists_node* newPlaylist(playlistsHeader* playlists, musicsHeader* musics) {
+    lplaylists_node* playlist = malloc(sizeof(lplaylists_node));
+    playlist->musicas = NULL;
+    playlist->prox = NULL;
+
+    printf("\nNew Playlist");
+
+    printf("\nPlaylist name: ");
+    fflush(stdin);
+    fgets(playlist->nome, STRING_SIZE, stdin);
+
+    printMusics(musics);
+
+    playlist_node* lastMusicInserted;
+
+    printf("\nMusics to insert in playlist: ");
+
+    fflush(stdin);
+    while (1) {
+        int idSelected;
+
+        scanf("%d", &idSelected);
+
+        if (idSelected <= 0) {
+            break;
+        }
+
+        musica* selectedMusic = getMusic(idSelected, musics);
+
+        if (selectedMusic != NULL) {
+            playlist_node* node = malloc(sizeof(playlist_node));
+            node->musica = selectedMusic;
+
+            if (playlist->musicas == NULL) {
+                node->prox = node;
+                playlist->musicas = node;
+            } else {
+                lastMusicInserted->prox = node;
+                node->prox = playlist->musicas;
+            }
+
+            lastMusicInserted = node;
+        }
+    }
+
+    playlist->id = playlists->count + 1;
+    
+    if (playlists->count == 0) {
+        playlists->first = playlist;
+        playlists->last = playlist;
+    } else {
+        playlists->last->prox = playlist;
+        playlists->last = playlist;
+    }
+
+    playlists->last->prox = playlist;
+
+    playlist->prox = NULL;
+
+    playlists->count++;
+
+    return playlist;
+}

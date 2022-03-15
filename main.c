@@ -15,5 +15,6 @@ int main() {
 
     printMusics(musics);
 
-    getMusic(2, musics);
+    newPlaylist(playlists, musics);
+    newPlaylist(playlists, musics);
 }
