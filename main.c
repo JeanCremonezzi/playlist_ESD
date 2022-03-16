@@ -18,6 +18,8 @@ int main() {
     newPlaylist(playlists, musics);
     newPlaylist(playlists, musics);
 
+    //deleteMusicById(musics, playlists, 3);
+
     printPlayListById(playlists, 1);
     printPlayListById(playlists, 2);
 }

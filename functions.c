@@ -201,6 +201,69 @@ void printPlayList(lplaylists_node* playlist) {
     printf("\n\nPlaylist %d has no musics.", playlist->id);
 }
 
+void deleteMusicById(musicsHeader* header, playlistsHeader* playlists, int id) {
+    //Verificar se id é igual
+    //Se for a única
+    //Se for a primeira
+    //Se não for nenhuma das anteriores
+
+    //Free()
+
+    if (id <= 0) {
+        printf("\nInvalid Music or ID.");
+        return;
+    }
+
+    musica* musicToDelete = getMusic(id, header);
+    if (musicToDelete == NULL) {
+        printf("\nMusic not found.");
+        return;
+    }
+
+    musica_node* nodeMusicDelete = header->first;
+    while (1) {
+        if (nodeMusicDelete->musica == musicToDelete) {
+            header->count--;
+
+            if (nodeMusicDelete == header->first && nodeMusicDelete == header->last) {
+                header->first = NULL;
+                header->last = NULL;
+
+                return;
+            }
+
+            if (nodeMusicDelete == header->first) {
+                nodeMusicDelete->prox->ant = NULL;
+                header->first = nodeMusicDelete->prox;
+
+                return;
+            }
+            
+            if (nodeMusicDelete == header->last) {
+                nodeMusicDelete->ant->prox = NULL;
+                header->last = nodeMusicDelete->ant;
+
+                return;
+            }
+
+            nodeMusicDelete->ant->prox = nodeMusicDelete->prox;
+            nodeMusicDelete->prox->ant = nodeMusicDelete->ant;
+        }
+
+        if (nodeMusicDelete->prox == NULL) {
+            return;
+        }
+
+        nodeMusicDelete = nodeMusicDelete->prox;
+    }
+
+    free(nodeMusicDelete);
+}
+
+void deleteMusic(musicsHeader* header, playlistsHeader* playlists, musica* music) {
+    deleteMusicById(header, playlists, music->id);
+}
+
 musica* getMusic(int id, musicsHeader* header) {
     if (header->count > 0 && id > 0) {
         musica_node* actualNode = header->first;

@@ -7,4 +7,6 @@ void printMusic(musica* music);
 void printMusics(musicsHeader* header);
 void printPlayListById (playlistsHeader* playlists, int id);
 void printPlayList(lplaylists_node* playlist);
+void deleteMusicById(musicsHeader* header, playlistsHeader* playlists, int id);
+void deleteMusic(musicsHeader* header, playlistsHeader* playlists, musica* music);
 musica* getMusic(int id, musicsHeader* header);
