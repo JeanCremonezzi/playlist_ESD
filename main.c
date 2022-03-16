@@ -11,16 +11,17 @@ int main() {
     insertMusic(musics, "Black", "Pearl Jam", "Ten", 345);
     insertMusic(musics, "City of Angels", "The Distillers", "Sing Sing Death House", 210);
 
-    //printMusics(musics);
+    printMusics(musics);
 
-    newPlaylist(playlists, musics);
+    //newPlaylist(playlists, musics);
     //newPlaylist(playlists, musics);
 
-    printPlayListById(playlists, 1);
+    //printPlayListById(playlists, 1);
     //printPlayListById(playlists, 2);
 
-    deleteMusicById(musics, playlists, 1);
+    deleteMusicById(musics, playlists, 3);
+    printMusics(musics);
 
-    printPlayListById(playlists, 1);
+    //printPlayListById(playlists, 1);
     //printPlayListById(playlists, 2);
 }
