@@ -205,80 +205,56 @@ void printPlayList(lplaylists_node* playlist) {
 }
 
 void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists) {
-    // Refatorar código - principalmente linhas com /***/ 
-
     if (playlists->count <= 0) {
         return;
     }
 
-    // Percorre todas as playlists
-    lplaylists_node* actualPlaylist = playlists->first;
-    while (1) {
+    lplaylists_node* actualPlaylistNode = playlists->first;
+    for (int i = 1; i <= playlists->count; i++) {
+        
+        playlist_node* actualMusicNode = actualPlaylistNode->musicas;
+        playlist_node* prevMusicNode = actualPlaylistNode->musicas;
+        while (1 && actualMusicNode != NULL) {
 
-        // Percorre todas as músicas da playlist
-        playlist_node* actualMusicNode = actualPlaylist->musicas;
-        if (actualMusicNode != NULL) {
+            if (actualMusicNode->musica == musicToDelete) {
+                
+                if (actualMusicNode->prox == actualMusicNode) { // É a única
+                    actualPlaylistNode->musicas = NULL;
 
-            playlist_node* prevMusicNode = actualPlaylist->musicas;
-            while (1) {
-
-                // Se encontrar a música
-                if (actualMusicNode->musica == musicToDelete) {
-                    
-                    // Se for a única
-                    if (actualMusicNode == actualPlaylist->musicas && actualMusicNode->prox == actualPlaylist->musicas) {
-                        actualPlaylist->musicas = NULL;
-                        break;
-                    }
-
-                    // Se for a primeira música
-                    if (actualMusicNode == actualPlaylist->musicas) {
-
-                        // Muda o prox do ultimo
-                        playlist_node* lastNode = actualMusicNode;
-                        while (1) {
-                            if (lastNode->prox == actualPlaylist->musicas) {
-                                lastNode->prox = actualPlaylist->musicas->prox;
-                                break;
-                            }
-
-                            lastNode = lastNode->prox;
-                        }
-
-                        actualPlaylist->musicas = actualMusicNode->prox;
-                        prevMusicNode = actualPlaylist->musicas;
-
-                        free(actualMusicNode); /***/
-                        actualMusicNode = prevMusicNode; /***/
-
-                        continue; /***/
-                    } else {
-                        prevMusicNode->prox = actualMusicNode->prox;
-
-                        free(actualMusicNode); /***/
-                        actualMusicNode = prevMusicNode; /***/
-
-                        continue; /***/
-                    }
-                    
-                    //free(actualMusicNode);
-                    //actualMusicNode = prevMusicNode;
-                }
-
-                if (actualMusicNode->prox == actualPlaylist->musicas) {
+                    free(actualMusicNode);
                     break;
+
+                } else if (actualMusicNode == actualPlaylistNode->musicas) { // É a primeira
+
+                    playlist_node* lastMusicNode = actualMusicNode;
+                    while (lastMusicNode->prox != actualPlaylistNode->musicas) { // Altera prox da última
+                        lastMusicNode = lastMusicNode->prox;
+                    }
+                    lastMusicNode->prox = actualMusicNode->prox;
+                    actualPlaylistNode->musicas = actualMusicNode->prox;
+
+                    free(actualMusicNode);
+
+                    actualMusicNode = actualPlaylistNode->musicas;
+                    prevMusicNode = actualPlaylistNode->musicas;
+
+                    continue;
+
+                } else {
+                    prevMusicNode->prox = actualMusicNode->prox;
+                    free(actualMusicNode);
+                    actualMusicNode = prevMusicNode;
                 }
 
-                prevMusicNode = actualMusicNode;
-                actualMusicNode = actualMusicNode->prox;
+            } else if (actualMusicNode->prox == actualPlaylistNode->musicas) {
+                break;
             }
+
+            prevMusicNode = actualMusicNode;
+            actualMusicNode = actualMusicNode->prox;
         }
 
-        if (actualPlaylist->prox == NULL) {
-            return;
-        }
-
-        actualPlaylist = actualPlaylist->prox;
+        actualPlaylistNode = actualPlaylistNode->prox;
     }
 }
 
