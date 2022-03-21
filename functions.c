@@ -337,3 +337,48 @@ void deleteMusicById(musicsHeader* musics, playlistsHeader* playlists, int id) {
 void deleteMusic(musicsHeader* musics, playlistsHeader* playlists, musica* music) {
     deleteMusicById(musics, playlists, music->id);
 }
+
+void shuffle(lplaylists_node* playlist) {
+    // Troca somente a música, não os nós da playlist
+    int count = playlist->count;
+    if (count > 1) {
+
+        playlist_node* actualNode = playlist->musicas;
+        for (int i = 1; i <= count; i++) {
+            int switchTo = rand() % (count + 1); //rand() % (max + min)
+
+            playlist_node* nodeToSwitch = playlist->musicas;
+            for (int j = 1; j <= switchTo; j++) {
+                if (j == switchTo) {
+
+                    musica* auxMusicSwitch = nodeToSwitch->musica;
+                    musica* auxMusicActual = actualNode->musica;
+
+                    nodeToSwitch->musica = auxMusicActual;
+                    actualNode->musica = auxMusicSwitch;
+
+                } else {
+                    nodeToSwitch = nodeToSwitch->prox;
+                }
+            }
+            
+            actualNode = actualNode->prox;
+        }
+    }
+}
+
+void shuffleById(playlistsHeader* playlists, int id) {
+
+    if (playlists->count > 0) {
+        lplaylists_node* actualPlaylist = playlists->first;
+
+        while (1) {
+            if (actualPlaylist->id == id) {
+                shuffle(actualPlaylist);
+                return;
+            }
+
+            actualPlaylist = actualPlaylist->prox;
+        }
+    }
+}

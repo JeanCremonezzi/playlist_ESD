@@ -15,12 +15,14 @@ int main() {
 
     newPlaylist(playlists, musics);
     newPlaylist(playlists, musics);
-
-    //printPlayListById(playlists, 1);
-    //printPlayListById(playlists, 2);
+    
+    printPlayListById(playlists, 1);
+    printPlayListById(playlists, 2);
 
     deleteMusicById(musics, playlists, 3);
     printMusics(musics);
+
+    shuffleById(playlists, 1);
 
     printPlayListById(playlists, 1);
     printPlayListById(playlists, 2);

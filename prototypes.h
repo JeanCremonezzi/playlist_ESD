@@ -11,3 +11,5 @@ void printPlayList(lplaylists_node* playlist);
 void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists);
 void deleteMusicById(musicsHeader* musics, playlistsHeader* playlists, int id);
 void deleteMusic(musicsHeader* musics, playlistsHeader* playlists, musica* music);
+void shuffle(lplaylists_node* playlist);
+void shuffleById(playlistsHeader* playlists, int id);
