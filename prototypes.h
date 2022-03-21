@@ -1,6 +1,7 @@
 musicsHeader* init();
 playlistsHeader* initPlaylists();
 musica* createMusic(char* title, char* artist, char* album, int duration);
+musica* getMusic(int id, musicsHeader* header);
 musica_node* insertMusic(musicsHeader* header, char* title, char* artist, char* album, int duration);
 lplaylists_node* newPlaylist(playlistsHeader* playlists, musicsHeader* musics);
 void printMusic(musica* music);
@@ -10,4 +11,3 @@ void printPlayList(lplaylists_node* playlist);
 void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists);
 void deleteMusicById(musicsHeader* musics, playlistsHeader* playlists, int id);
 void deleteMusic(musicsHeader* musics, playlistsHeader* playlists, musica* music);
-musica* getMusic(int id, musicsHeader* header);

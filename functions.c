@@ -31,6 +31,26 @@ musica* createMusic(char* title, char* artist, char* album, int duration) {
     return newMusic;
 }
 
+musica* getMusic(int id, musicsHeader* header) {
+    if (header->count > 0 && id > 0) {
+        musica_node* actualNode = header->first;
+
+        while(1) {
+            if (actualNode->musica->id == id) {
+                return actualNode->musica;
+            }
+
+            if (actualNode->prox == NULL) {
+                return NULL;
+            }
+
+            actualNode = actualNode->prox;
+        }
+    }
+
+    return NULL;
+}
+
 musica_node* insertMusic(musicsHeader* header, char* title, char* artist, char* album, int duration) {
     musica_node* musicNode = malloc(sizeof(musica_node));
 
@@ -64,6 +84,7 @@ lplaylists_node* newPlaylist(playlistsHeader* playlists, musicsHeader* musics) {
     lplaylists_node* playlist = malloc(sizeof(lplaylists_node));
     playlist->musicas = NULL;
     playlist->prox = NULL;
+    playlist->count = 0;
 
     printf("\nNew Playlist");
 
@@ -72,10 +93,9 @@ lplaylists_node* newPlaylist(playlistsHeader* playlists, musicsHeader* musics) {
     fgets(playlist->nome, STRING_SIZE, stdin);
 
     printMusics(musics);
+    printf("\nMusics to insert in playlist: ");
 
     playlist_node* lastMusicInserted;
-
-    printf("\nMusics to insert in playlist: ");
 
     fflush(stdin);
     while (1) {
@@ -102,6 +122,8 @@ lplaylists_node* newPlaylist(playlistsHeader* playlists, musicsHeader* musics) {
             }
 
             lastMusicInserted = node;
+
+            playlist->count++;
         }
     }
 
@@ -218,6 +240,8 @@ void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists) {
 
             if (actualMusicNode->musica == musicToDelete) {
                 
+                actualPlaylistNode->count--;
+
                 if (actualMusicNode->prox == actualMusicNode) { // É a única
                     actualPlaylistNode->musicas = NULL;
 
@@ -312,24 +336,4 @@ void deleteMusicById(musicsHeader* musics, playlistsHeader* playlists, int id) {
 
 void deleteMusic(musicsHeader* musics, playlistsHeader* playlists, musica* music) {
     deleteMusicById(musics, playlists, music->id);
-}
-
-musica* getMusic(int id, musicsHeader* header) {
-    if (header->count > 0 && id > 0) {
-        musica_node* actualNode = header->first;
-
-        while(1) {
-            if (actualNode->musica->id == id) {
-                return actualNode->musica;
-            }
-
-            if (actualNode->prox == NULL) {
-                return NULL;
-            }
-
-            actualNode = actualNode->prox;
-        }
-    }
-
-    return NULL;
 }

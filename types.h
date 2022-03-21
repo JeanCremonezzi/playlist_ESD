@@ -28,6 +28,7 @@ typedef struct lplaylists_node {
     char nome[STRING_SIZE];
     playlist_node *musicas;
     struct lplaylists_node *prox;
+    int count;
 } lplaylists_node;
 
 typedef struct playlistsHeader {
