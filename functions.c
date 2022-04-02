@@ -86,14 +86,12 @@ lplaylists_node* newPlaylist(playlistsHeader* playlists, musicsHeader* musics) {
     playlist->prox = NULL;
     playlist->count = 0;
 
-    printf("\nNew Playlist");
-
-    printf("\nPlaylist name: ");
+    printf("\n-> Playlist name: ");
     fflush(stdin);
     fgets(playlist->nome, STRING_SIZE, stdin);
 
     printMusics(musics);
-    printf("\nMusics to insert in playlist: ");
+    printf("\n-> Musics to insert in playlist: ");
 
     playlist_node* lastMusicInserted;
 
@@ -224,6 +222,24 @@ void printPlayList(lplaylists_node* playlist) {
     }
 
     printf("\n\nPlaylist %d has no musics.", playlist->id);
+}
+
+void printPlayLists(playlistsHeader* playlists) {
+    lplaylists_node* actualPlaylist;
+    actualPlaylist = playlists->first;
+
+    if (playlists->count == 0) {
+        printf("\nNo playlists found");
+        return;
+    }
+
+    while (actualPlaylist != NULL) {
+        printf("\n - Playlist #%d", actualPlaylist->id);
+        printf("\n   Name: %s", actualPlaylist->nome);
+        printf("   Total musics: %d", actualPlaylist->count);
+
+        actualPlaylist = actualPlaylist->prox;
+    }
 }
 
 void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists) {
