@@ -53,42 +53,80 @@ int main() {
                 scanf("%d", &duration);
 
                 insertMusic(musics, music, artist, album, duration);
+                printf("\n> Music Created!");
                 break;
 
             case 2:
-                printMusics(musics);
+                musics->count > 0 ? printMusics(musics) : printf("\nNo musics found!\n");
+                
                 break;
 
             case 3:
-                printf("\n-> Music id: ");
-                int id;
-                scanf("%d", &id);
+                if (musics->count > 0) {
+                    printf("\n-> Music id: ");
+                    int id;
+                    scanf("%d", &id);
 
-                deleteMusicById(musics, playlists, id);
+                    if (id <= 0) {
+                        printf("\nInvalid music ID.");
+
+                    } else {
+                        if (!deleteMusicById(musics, playlists, id)) {
+                            printf("\nMusic not found.");
+
+                        } else {
+                            printf("\nMusic ID %d was deleted.", id);
+                        }
+                    }
+
+                } else {
+                    printf("\nNo musics found!\n");
+                }
+
                 break;
 
             case 4:
-                newPlaylist(playlists, musics);
+                if (musics->count > 0) {
+                    newPlaylist(playlists, musics);
+                    
+                } else {
+                    printf("\nNo musics found!\n");
+                }
+                
                 break;
 
             case 5:
-                printPlayLists(playlists);
+                if (!printPlayLists(playlists)) {
+                    printf("\nNo playlists found\n");
 
-                printf("\n\n-> Playlist id: ");
-                int playlistId;
-                scanf("%d", &playlistId);
+                } else {
+                    printf("\n\n-> Playlist id: ");
+                    int playlistId;
+                    scanf("%d", &playlistId);
 
-                printPlayListById(playlists, playlistId);
+                    if (!printPlayListById(playlists, playlistId)) {
+                        printf("\n\nPlaylist not found.");
+                    }
+                }
+
                 break;
 
             case 6:
-                printPlayLists(playlists);
+                if (!printPlayLists(playlists)) {
+                    printf("\nNo playlists found\n");
 
-                printf("\n\n-> Playlist id: ");
-                int playlistToShuffle;
-                scanf("%d", &playlistToShuffle);
+                } else {
+                    printf("\n\n-> Playlist id: ");
+                    int playlistToShuffle;
+                    scanf("%d", &playlistToShuffle);
 
-                shuffleById(playlists, playlistToShuffle);
+                    if (!shuffleById(playlists, playlistToShuffle)) {
+                        printf("\n> Playlist not found!");
+
+                    } else {
+                        printf("\n> Playlist was shuffled");
+                    }
+                }
                 break;
             
             default:
