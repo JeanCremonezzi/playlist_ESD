@@ -3,9 +3,8 @@
 int main() {
     musicsHeader* musics = init();
     playlistsHeader* playlists = initPlaylists();
-
-    int flag = 1;
-    while(flag) {
+    
+    while(1) {
         printf("\n-------- MUSICS MENU --------\n");
         printf("\n> Menu:");
         printf("\n   1. Add new music");
@@ -30,7 +29,7 @@ int main() {
         int option = optionChar - '0';
         switch (option) {
             case 0:
-                flag = 0;
+                return 0;
                 break;
 
             case 1:
