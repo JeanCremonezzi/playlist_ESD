@@ -238,59 +238,45 @@ bool printPlayLists(playlistsHeader* playlists) {
     return 1;
 }
 
-void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists) {
-    if (playlists->count <= 0) {
-        return;
-    }
+void deleteFromPlaylist(lplaylists_node* playlist, musica* music) {
+    playlist_node* actualNode = playlist->musicas;
+    playlist_node* aux = playlist->musicas;
+    for (int i = 0; i <= playlist->count; i++) {
 
-    lplaylists_node* actualPlaylistNode = playlists->first;
-    for (int i = 1; i <= playlists->count; i++) {
-        
-        playlist_node* actualMusicNode = actualPlaylistNode->musicas;
-        playlist_node* prevMusicNode = actualPlaylistNode->musicas;
-        while (1 && actualMusicNode != NULL) {
+        if (actualNode->musica == music) {
+            if (playlist->count == 1) { // Se for a unica
+                playlist->musicas = NULL;
 
-            if (actualMusicNode->musica == musicToDelete) {
-                
-                actualPlaylistNode->count--;
+            } else if (actualNode == playlist->musicas) { // Se for a primeira
+                playlist->musicas = actualNode->prox;
+                aux = playlist->musicas;
 
-                if (actualMusicNode->prox == actualMusicNode) { // É a única
-                    actualPlaylistNode->musicas = NULL;
-
-                    free(actualMusicNode);
-                    break;
-
-                } else if (actualMusicNode == actualPlaylistNode->musicas) { // É a primeira
-
-                    playlist_node* lastMusicNode = actualMusicNode;
-                    while (lastMusicNode->prox != actualPlaylistNode->musicas) { // Altera prox da última
-                        lastMusicNode = lastMusicNode->prox;
-                    }
-                    lastMusicNode->prox = actualMusicNode->prox;
-                    actualPlaylistNode->musicas = actualMusicNode->prox;
-
-                    free(actualMusicNode);
-
-                    actualMusicNode = actualPlaylistNode->musicas;
-                    prevMusicNode = actualPlaylistNode->musicas;
-
-                    continue;
-
-                } else {
-                    prevMusicNode->prox = actualMusicNode->prox;
-                    free(actualMusicNode);
-                    actualMusicNode = prevMusicNode;
-                }
-
-            } else if (actualMusicNode->prox == actualPlaylistNode->musicas) {
-                break;
+            } else { // Se for qualquer outra
+                aux->prox = actualNode->prox;
             }
 
-            prevMusicNode = actualMusicNode;
-            actualMusicNode = actualMusicNode->prox;
+            free(actualNode);
+            actualNode = aux;
+
+            playlist->count--;
+            i--;
+
+        } else {
+            aux = actualNode;
+            actualNode = actualNode->prox;
+        }
+    }
+}
+
+void deleteFromPlaylists(musica* musicToDelete, playlistsHeader* playlists) {
+    
+    lplaylists_node* actualPlaylist = playlists->first;
+    for (int i = 0; i < playlists->count; i++) {
+        if (actualPlaylist->count > 0) {
+            deleteFromPlaylist(actualPlaylist, musicToDelete);
         }
 
-        actualPlaylistNode = actualPlaylistNode->prox;
+        actualPlaylist = actualPlaylist->prox;
     }
 }
 
@@ -313,7 +299,7 @@ bool deleteMusicById(musicsHeader* musics, playlistsHeader* playlists, int id) {
             musics->last = musicToDelete->ant;
             musics->last->prox = NULL;
 
-        } else {
+        } else { // Se for qualquer outra
             musicToDelete->ant->prox = musicToDelete->prox;
             musicToDelete->prox->ant = musicToDelete->ant;
         }
@@ -329,7 +315,7 @@ bool deleteMusicById(musicsHeader* musics, playlistsHeader* playlists, int id) {
 }
 
 void shuffle(lplaylists_node* playlist) {
-    // Troca somente a música, não os nós da playlist
+    // Troca somente a musica, nao os nos da playlist
     if (playlist->count > 1) {
 
         playlist_node* actualNode = playlist->musicas;
