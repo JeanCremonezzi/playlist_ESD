@@ -25,8 +25,7 @@ int main() {
             continue;
         }
 
-        // Char to Int
-        int option = optionChar - '0';
+        int option = atoi(&optionChar);
         switch (option) {
             case 0:
                 return 0;
